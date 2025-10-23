@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kartu Sukses - Modern Design</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Quicksand:wght@500;700&family=Caveat+Brush&family=Bitcount+Grid+Single:wght@100..900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+    <style>
+        body { margin: 0; display: flex; justify-content: center; align-items: center; }
+    </style>
+</head>
+<body>
+    <script>
+        let avatarImg;
+        let successBadgeImg;
+        let cardConfig;
+
+        // Get URL parameters
+        function getURLParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return {
+                user: urlParams.get('user') || '@80775651303442',
+                imageurl: urlParams.get('imageurl') || 'https://files.catbox.moe/5lzdmq.png',
+                datetime: urlParams.get('datetime') || 'Minggu, 12 Oktober 2025    18:19:14 WIB',
+                status: urlParams.get('status') || 'Done',
+                owner: urlParams.get('owner') || 'https://wa.me/6285143569870'
+            };
+        }
+
+        // Initialize config with URL parameters
+        const params = getURLParams();
+        cardConfig = {
+            width: 800,
+            height: 600,
+            backgroundColor: [16, 185, 129],
+            cardColor: [52, 211, 153],
+            labelColor: [220, 38, 38],
+            textColor: [0],
+            user: params.user,
+            date: params.datetime,
+            product: params.status,
+            owner: params.owner,
+            fonts: {
+                title: 'Bitcount Grid Single',
+                labels: 'Caveat Brush',
+                content: 'Caveat Brush'
+            }
+        };
+
+        function preload() {
+            avatarImg = loadImage(params.imageurl);
+            successBadgeImg = loadImage('https://files.catbox.moe/vws5b2.jpg');
+        }
+
+        function setup() {
+            createCanvas(cardConfig.width, cardConfig.height);
+            noLoop();
+        }
+
+        function draw() {
+            drawBackground();
+            drawStars();
+            drawMainCard();
+            drawOwnerSection();
+        }
+
+        function drawBackground() {
+            // Create blue-green gradient
+            for (let y = 0; y < height; y++) {
+                let inter = map(y, 0, height, 0, 1);
+                let c = lerpColor(color(59, 130, 246), color(16, 185, 129), inter);
+                stroke(c);
+                line(0, y, width, y);
+            }
+        }
+
+        function drawMainCard() {
+            const margin = 40;
+            const cardX = 80;
+            const cardY = 90;
+            const cardWidth = 650;
+            const cardHeight = 300;
+            const avatarSize = 140;
+
+            // Create gradient for card (55 degrees, yellow to green)
+            const angle = 55 * (Math.PI / 180);
+            const gradientLength = Math.sqrt(cardWidth * cardWidth + cardHeight * cardHeight);
+            const x1 = cardX + cardWidth / 2 - Math.cos(angle) * gradientLength / 2;
+            const y1 = cardY + cardHeight / 2 - Math.sin(angle) * gradientLength / 2;
+            const x2 = cardX + cardWidth / 2 + Math.cos(angle) * gradientLength / 2;
+            const y2 = cardY + cardHeight / 2 + Math.sin(angle) * gradientLength / 2;
+            
+            const gradient = drawingContext.createLinearGradient(x1, y1, x2, y2);
+            gradient.addColorStop(0, 'rgb(250, 204, 21)'); // Yellow
+            gradient.addColorStop(1, 'rgb(34, 197, 94)'); // Green
+            
+            drawingContext.fillStyle = gradient;
+            drawingContext.strokeStyle = 'rgb(0, 0, 0)';
+            drawingContext.lineWidth = 2;
+            
+            // Top section
+            drawingContext.beginPath();
+            drawingContext.roundRect(cardX, cardY, cardWidth, 130, [0, 50, 0, 0]);
+            drawingContext.fill();
+            drawingContext.stroke();
+            
+            // Middle section
+            drawingContext.beginPath();
+            drawingContext.rect(cardX, cardY + 130, cardWidth, 80);
+            drawingContext.fill();
+            drawingContext.stroke();
+            
+            // Bottom section
+            drawingContext.beginPath();
+            drawingContext.roundRect(cardX, cardY + 210, cardWidth, 170, [0, 0, 0, 50]);
+            drawingContext.fill();
+            drawingContext.stroke();
+
+            noStroke();
+            fill(255);
+            rect(cardX + 150, cardY-30, 350, 70, 50);
+            
+            fill(0);
+            textFont(cardConfig.fonts.title);
+            textSize(34);
+            textStyle(BOLD);
+            textAlign(LEFT, CENTER);
+            text('PESANAN SELESAI', cardX + 175, cardY+10);
+            
+            // Success badge (separated from text)
+            push();
+            const badgeSize = avatarSize-50;
+            const badgeX = cardX + 530;
+            const badgeY = cardY+270;
+            
+            // Move origin to badge center and rotate 45 degrees
+            translate(badgeX, badgeY);
+            rotate(radians(25));
+            
+            // Clip to circle shape
+            drawingContext.save();
+            drawingContext.beginPath();
+            drawingContext.arc(0, 0, badgeSize/2, 0, TWO_PI);
+            drawingContext.clip();
+            
+            // Draw badge image
+            imageMode(CENTER);
+            image(successBadgeImg, 0, 0, badgeSize, badgeSize);
+            drawingContext.restore();
+            pop();
+
+            // USER section
+            textFont(cardConfig.fonts.labels);
+            fill(...cardConfig.labelColor);
+            textSize(22);
+            textStyle(BOLD);
+            textAlign(LEFT, CENTER);
+            text('USER', cardX + 100, cardY + 110);
+            
+            textFont(cardConfig.fonts.content);
+            fill(...cardConfig.textColor);
+            textSize(20);
+            textStyle(NORMAL);
+            text(cardConfig.user, cardX + 250, cardY + 110);
+
+            // TANGGAL section
+            textFont(cardConfig.fonts.labels);
+            fill(...cardConfig.labelColor);
+            textSize(22);
+            textStyle(BOLD);
+            text('TANGGAL', cardX + 100, cardY + 170);
+            
+            textFont(cardConfig.fonts.content);
+            fill(...cardConfig.textColor);
+            textSize(20);
+            textStyle(NORMAL);
+            text(cardConfig.date, cardX + 250, cardY + 170);
+
+            // PRODUK section
+            textFont(cardConfig.fonts.labels);
+            fill(...cardConfig.labelColor);
+            textSize(22);
+            textStyle(BOLD);
+            textAlign(LEFT, CENTER);
+            text('PRODUK', cardX + 100, cardY + 280);
+            
+            // Product text with white outline and green fill
+            textFont(cardConfig.fonts.title);
+            textSize(56);
+            textStyle(BOLD);
+            textAlign(CENTER, CENTER);
+            
+            // Draw white outline
+            stroke(255);
+            strokeWeight(8);
+            fill(34, 197, 94); // Green color
+            text(cardConfig.product, cardX + cardWidth/2 + 20, cardY + 280);
+            
+            noStroke();
+            
+            // Avatar circle with border (drawn last to be in front)
+            push();
+            const avatarX = 110;
+            const avatarY = 90;
+            
+            // Avatar border (black)
+            stroke(0);
+            strokeWeight(2);
+            fill(255);
+            circle(avatarX, avatarY, avatarSize);
+            
+            // Clip and draw avatar
+            drawingContext.save();
+            drawingContext.beginPath();
+            drawingContext.arc(avatarX, avatarY, avatarSize/2 - 3, 0, TWO_PI);
+            drawingContext.clip();
+            image(avatarImg, avatarX - avatarSize/2 + 3, avatarY - avatarSize/2 + 3, avatarSize - 6, avatarSize - 6);
+            drawingContext.restore();
+            pop();
+        }
+
+        function drawStars() {
+            // Left side stars
+            noStroke();
+            fill(220, 38, 38, 200);
+            drawStar(45, 180, 12, 25, 4);
+            drawStar(35, 350, 8, 18, 4);
+            
+            // Right side stars
+            fill(220, 38, 38, 180);
+            drawStar(735, 80, 10, 22, 4);
+            drawStar(750, 240, 14, 28, 4);
+            drawStar(740, 450, 9, 20, 4);
+            
+            // Additional decorative stars
+            fill(220, 38, 38, 120);
+            drawStar(760, 350, 6, 14, 4);
+        }
+
+        function drawStar(x, y, radius1, radius2, npoints) {
+            let angle = TWO_PI / npoints;
+            let halfAngle = angle/2.0;
+            beginShape();
+            for (let a = 0; a < TWO_PI; a += angle) {
+                let sx = x + cos(a) * radius2;
+                let sy = y + sin(a) * radius2;
+                vertex(sx, sy);
+                sx = x + cos(a+halfAngle) * radius1;
+                sy = y + sin(a+halfAngle) * radius1;
+                vertex(sx, sy);
+            }
+            endShape(CLOSE);
+        }
+
+        function drawOwnerSection() {
+            const ownerX = 120;
+            const ownerY = 480;
+            const ownerWidth = 580;
+            const ownerHeight = 70;
+            
+            // Owner box with border
+            stroke(0);
+            strokeWeight(1);
+            fill(52, 211, 153);
+            rect(ownerX, ownerY, ownerWidth, ownerHeight, 40);
+            
+            // Owner text
+            noStroke();
+            fill(0);
+            textFont('Quicksand');
+            textSize(25);
+            textStyle(BOLD);
+            textAlign(LEFT, CENTER);
+            text('OWNER : ' + cardConfig.owner, ownerX + 40, ownerY + ownerHeight/2);
+        }
+    </script>
+</body>
+</html>

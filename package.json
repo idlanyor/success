@@ -1,0 +1,30 @@
+{
+  "name": "success-card-api",
+  "version": "1.0.0",
+  "description": "API untuk generate kartu sukses dengan desain modern",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "curl http://localhost:3000/health",
+    "docs": "open http://localhost:3000/api-docs",
+    "preview": "open http://localhost:3000/success/html"
+  },
+  "keywords": [
+    "api",
+    "success-card",
+    "express"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "canvas": "^2.11.2",
+    "express": "^4.18.2",
+    "node-fetch": "^2.7.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
