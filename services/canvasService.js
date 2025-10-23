@@ -2,30 +2,30 @@ const { createCanvas, loadImage, registerFont } = require('canvas');
 const fetch = require('node-fetch');
 const fs = require('fs');
 const path = require('path');
-const fontDir = path.join(__dirname, 'fonts');
-
 
 // ======= Helper: download font =======
-registerFont(path.join(fontDir, 'Poppins-Regular.ttf'), { family: 'Poppins', weight: '400' });
-registerFont(path.join(fontDir, 'Poppins-SemiBold.ttf'), { family: 'Poppins', weight: '600' });
-
-registerFont(path.join(fontDir, 'Quicksand-Medium.ttf'), { family: 'Quicksand', weight: '500' });
-registerFont(path.join(fontDir, 'Quicksand-Bold.ttf'), { family: 'Quicksand', weight: '700' });
-
-registerFont(path.join(fontDir, 'CaveatBrush-Regular.ttf'), { family: 'Caveat Brush', weight: '400' });
-
-registerFont(path.join(fontDir, 'BitcountGridSingle.ttf'), { family: 'Bitcount Grid Single', weight: '400' });
+// Note: Fonts are now loaded dynamically from Google Fonts when needed
 
 
 async function loadGoogleFont(url, family) {
     try {
+        // Create safe filename by replacing spaces with dashes
+        const safeFileName = family.replace(/\s+/g, '-');
+        const fontPath = path.join(__dirname, `${safeFileName}.ttf`);
+        
+        // Skip if font already exists
+        if (fs.existsSync(fontPath)) {
+            registerFont(fontPath, { family });
+            console.log(`✅ Font '${family}' already exists, registered from cache`);
+            return;
+        }
+        
         const res = await fetch(url);
-        if (!res.ok) throw new Error(`Failed to fetch font ${family}`);
+        if (!res.ok) throw new Error(`Failed to fetch font ${family} (HTTP ${res.status})`);
         const fontBuffer = await res.arrayBuffer();
-        const fontPath = path.join(__dirname, `${family}.ttf`);
         fs.writeFileSync(fontPath, Buffer.from(fontBuffer));
         registerFont(fontPath, { family });
-        console.log(`✅ Font '${family}' registered`);
+        console.log(`✅ Font '${family}' downloaded and registered`);
     } catch (err) {
         console.error(`❌ Font '${family}' gagal diload:`, err.message);
     }
