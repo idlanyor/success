@@ -77,9 +77,8 @@ async function generateSuccessCard(params, options = {}) {
     // === Load fonts dynamically ===
     await Promise.all([
         loadGoogleFont('https://github.com/google/fonts/raw/main/ofl/poppins/Poppins-Bold.ttf', 'Poppins'),
-        loadGoogleFont('https://github.com/google/fonts/raw/main/ofl/quicksand/Quicksand-Bold.ttf', 'Quicksand'),
         loadGoogleFont('https://github.com/google/fonts/raw/main/ofl/caveatbrush/CaveatBrush-Regular.ttf', 'Caveat Brush'),
-        loadGoogleFont('https://github.com/google/fonts/raw/main/ofl/bitcountgrid/BitcountGridSingle-Regular.ttf', 'Bitcount Grid Single')
+        loadGoogleFont('https://github.com/google/fonts/raw/main/ofl/bitcountgridsingle/BitcountGridSingle%5BCRSV%2CELSH%2CELXP%2Cslnt%2Cwght%5D.ttf', 'Bitcount Grid Single')
     ]);
 
     const canvas = createCanvas(width, height);
@@ -128,11 +127,22 @@ async function generateSuccessCard(params, options = {}) {
         const avatar = await loadImage(imageurl);
         const size = 140;
         const x = 110, y = 90;
-        ctx.save();
+        
+        // Draw avatar border (white fill with black stroke)
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 2;
+        ctx.fillStyle = 'white';
         ctx.beginPath();
         ctx.arc(x, y, size / 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        
+        // Clip and draw avatar image (slightly smaller to show border)
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(x, y, size / 2 - 3, 0, Math.PI * 2);
         ctx.clip();
-        ctx.drawImage(avatar, x - size / 2, y - size / 2, size, size);
+        ctx.drawImage(avatar, x - size / 2 + 3, y - size / 2 + 3, size - 6, size - 6);
         ctx.restore();
     } catch {
         console.warn("⚠️ Avatar gagal dimuat");
@@ -172,7 +182,7 @@ async function generateSuccessCard(params, options = {}) {
     ctx.stroke();
 
     ctx.fillStyle = 'black';
-    ctx.font = 'bold 25px "Quicksand"';
+    ctx.font = 'bold 25px "Poppins"';
     ctx.textAlign = 'left';
     ctx.fillText('OWNER : ' + owner, 160, 520);
 
