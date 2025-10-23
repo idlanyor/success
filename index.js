@@ -38,11 +38,11 @@ app.listen(PORT, () => {
     console.log('='.repeat(60));
     console.log('🚀 Success Card API Server');
     console.log('='.repeat(60));
-    console.log(`📡 Server running on: http://localhost:${PORT}`);
-    console.log(`📚 Swagger Docs: http://localhost:${PORT}/api-docs`);
-    console.log(`📝 API Info (JSON): http://localhost:${PORT}/`);
-    console.log(`🎨 Generate card: http://localhost:${PORT}/success`);
-    console.log(`💚 Health check: http://localhost:${PORT}/health`);
+    console.log(`📡 Server running on: https://canvas.kanata.web.id`);
+    console.log(`📚 Swagger Docs: https://canvas.kanata.web.id/api-docs`);
+    console.log(`📝 API Info (JSON): https://canvas.kanata.web.id/`);
+    console.log(`🎨 Generate card: https://canvas.kanata.web.id/success`);
+    console.log(`💚 Health check: https://canvas.kanata.web.id/health`);
     console.log('='.repeat(60));
 });
 

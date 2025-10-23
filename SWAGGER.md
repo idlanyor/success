@@ -8,7 +8,7 @@ API ini menggunakan **Swagger/OpenAPI 3.0** untuk dokumentasi interaktif. Swagge
 
 ### Local Development
 ```
-http://localhost:3000/api-docs
+https://canvas.kanata.web.id/api-docs
 ```
 
 ### Production
@@ -18,7 +18,7 @@ https://your-domain.com/api-docs
 
 ### Swagger JSON Specification
 ```
-http://localhost:3000/api-docs.json
+https://canvas.kanata.web.id/api-docs.json
 ```
 
 ## 🎯 Cara Menggunakan Swagger UI
@@ -151,7 +151,7 @@ info: {
 ```javascript
 servers: [
     {
-        url: 'http://localhost:3000',
+        url: 'https://canvas.kanata.web.id',
         description: 'Development'
     },
     {
@@ -267,7 +267,7 @@ responses:
 
 ### Export Swagger Spec
 
-1. Buka `http://localhost:3000/api-docs.json`
+1. Buka `https://canvas.kanata.web.id/api-docs.json`
 2. Save as JSON file
 3. Import ke tools lain
 
@@ -275,7 +275,7 @@ responses:
 
 1. Buka Postman
 2. Click "Import"
-3. Paste URL: `http://localhost:3000/api-docs.json`
+3. Paste URL: `https://canvas.kanata.web.id/api-docs.json`
 4. Click "Import"
 5. Collection akan ter-create otomatis
 
@@ -291,7 +291,7 @@ npm install -g @openapitools/openapi-generator-cli
 
 # Generate JavaScript client
 openapi-generator-cli generate \
-  -i http://localhost:3000/api-docs.json \
+  -i https://canvas.kanata.web.id/api-docs.json \
   -g javascript \
   -o ./generated-client
 ```
@@ -333,7 +333,7 @@ schema:
 
 **Check:**
 1. Server running? `npm start`
-2. Port correct? `http://localhost:3000/api-docs`
+2. Port correct? `https://canvas.kanata.web.id/api-docs`
 3. Dependencies installed? `npm install`
 
 ### Changes Not Reflecting

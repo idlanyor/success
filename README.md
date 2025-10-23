@@ -17,7 +17,7 @@ npm start
 npm run dev
 ```
 
-Server akan berjalan di `http://localhost:3000`
+Server akan berjalan di `https://canvas.kanata.web.id`
 
 ## 📚 API Documentation (Swagger)
 
@@ -28,7 +28,7 @@ API ini dilengkapi dengan **Swagger UI** untuk dokumentasi interaktif yang memud
 Setelah server berjalan, buka browser dan akses:
 
 ```
-http://localhost:3000/api-docs
+https://canvas.kanata.web.id/api-docs
 ```
 
 ### Fitur Swagger UI:
@@ -42,7 +42,7 @@ http://localhost:3000/api-docs
 
 Untuk mengakses raw Swagger JSON specification:
 ```
-http://localhost:3000/api-docs.json
+https://canvas.kanata.web.id/api-docs.json
 ```
 
 Berguna untuk:
@@ -155,22 +155,22 @@ Generate kartu sukses sebagai **image (PNG/JPEG)** dengan parameter custom.
 
 **Basic PNG (default):**
 ```
-http://localhost:3000/success
+https://canvas.kanata.web.id/success
 ```
 
 **Custom parameters:**
 ```
-http://localhost:3000/success?user=@123456789&status=Success
+https://canvas.kanata.web.id/success?user=@123456789&status=Success
 ```
 
 **JPEG dengan quality 80:**
 ```
-http://localhost:3000/success?format=jpeg&quality=80
+https://canvas.kanata.web.id/success?format=jpeg&quality=80
 ```
 
 **Full parameters:**
 ```
-http://localhost:3000/success?user=@987654&imageurl=https://example.com/avatar.png&datetime=Senin,%2023%20Oktober%202025%2010:30:00%20WIB&status=Completed&owner=https://wa.me/6281234567890&format=png
+https://canvas.kanata.web.id/success?user=@987654&imageurl=https://example.com/avatar.png&datetime=Senin,%2023%20Oktober%202025%2010:30:00%20WIB&status=Completed&owner=https://wa.me/6281234567890&format=png
 ```
 
 **Response:**
@@ -181,7 +181,7 @@ http://localhost:3000/success?user=@987654&imageurl=https://example.com/avatar.p
   - `Cache-Control: public, max-age=300` (5 minutes cache)
 
 **Use Cases:**
-- Embed di website: `<img src="http://localhost:3000/success?user=@test">`
+- Embed di website: `<img src="https://canvas.kanata.web.id/success?user=@test">`
 - Share via WhatsApp/Telegram
 - Download langsung
 - Display di aplikasi mobile
@@ -200,7 +200,7 @@ Same as `/success` endpoint (except `format` and `quality`)
 
 #### Example
 ```
-http://localhost:3000/success/html?user=@test
+https://canvas.kanata.web.id/success/html?user=@test
 ```
 
 **Response:**
@@ -297,7 +297,7 @@ NODE_ENV=development
 
 ### Menggunakan Swagger UI (Recommended)
 1. Start server: `npm start`
-2. Buka browser: `http://localhost:3000/api-docs`
+2. Buka browser: `https://canvas.kanata.web.id/api-docs`
 3. Pilih endpoint yang ingin di-test (contoh: `/success`)
 4. Klik "Try it out"
 5. Isi parameter yang diinginkan
@@ -313,30 +313,30 @@ NODE_ENV=development
 ### Menggunakan Browser (Direct URL)
 1. Start server: `npm start`
 2. Buka browser dan akses:
-   - Swagger UI: `http://localhost:3000/api-docs` ⭐
-   - API Info: `http://localhost:3000/`
-   - Generate Card: `http://localhost:3000/success`
-   - Custom: `http://localhost:3000/success?user=@test&status=Success`
+   - Swagger UI: `https://canvas.kanata.web.id/api-docs` ⭐
+   - API Info: `https://canvas.kanata.web.id/`
+   - Generate Card: `https://canvas.kanata.web.id/success`
+   - Custom: `https://canvas.kanata.web.id/success?user=@test&status=Success`
 
 ### Menggunakan cURL
 
 ```bash
 # Default card
-curl http://localhost:3000/success
+curl https://canvas.kanata.web.id/success
 
 # Custom parameters
-curl "http://localhost:3000/success?user=@testuser&status=Completed"
+curl "https://canvas.kanata.web.id/success?user=@testuser&status=Completed"
 
 # API info
-curl http://localhost:3000/api/info
+curl https://canvas.kanata.web.id/api/info
 
 # Health check
-curl http://localhost:3000/health
+curl https://canvas.kanata.web.id/health
 ```
 
 ### Menggunakan Postman atau Thunder Client
 1. Method: `GET`
-2. URL: `http://localhost:3000/success`
+2. URL: `https://canvas.kanata.web.id/success`
 3. Params:
    - user: @testuser
    - imageurl: https://example.com/avatar.png

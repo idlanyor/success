@@ -21,52 +21,52 @@ npm install
 npm start
 ```
 
-Server akan berjalan di `http://localhost:3000`
+Server akan berjalan di `https://canvas.kanata.web.id`
 
 ### 3. Test API
 
 **Generate Image (PNG):**
 ```
-http://localhost:3000/success
+https://canvas.kanata.web.id/success
 ```
 
 **Preview HTML:**
 ```
-http://localhost:3000/success/html
+https://canvas.kanata.web.id/success/html
 ```
 
 **Swagger UI:**
 ```
-http://localhost:3000/api-docs
+https://canvas.kanata.web.id/api-docs
 ```
 
 ## 🎯 Common Use Cases
 
 ### 1. Basic Usage
 ```html
-<img src="http://localhost:3000/success" alt="Success Card">
+<img src="https://canvas.kanata.web.id/success" alt="Success Card">
 ```
 
 ### 2. Custom User & Status
 ```
-http://localhost:3000/success?user=@john_doe&status=Completed
+https://canvas.kanata.web.id/success?user=@john_doe&status=Completed
 ```
 
 ### 3. JPEG Format with Quality
 ```
-http://localhost:3000/success?format=jpeg&quality=80
+https://canvas.kanata.web.id/success?format=jpeg&quality=80
 ```
 
 ### 4. Full Customization
 ```
-http://localhost:3000/success?user=@alice&imageurl=https://example.com/avatar.jpg&datetime=Monday,%20Oct%2023,%202025&status=Shipped&owner=https://wa.me/123456789&format=png
+https://canvas.kanata.web.id/success?user=@alice&imageurl=https://example.com/avatar.jpg&datetime=Monday,%20Oct%2023,%202025&status=Shipped&owner=https://wa.me/123456789&format=png
 ```
 
 ## 📱 Integration Examples
 
 ### HTML
 ```html
-<img src="http://localhost:3000/success?user=@test&status=Done" 
+<img src="https://canvas.kanata.web.id/success?user=@test&status=Done" 
      alt="Success Card" 
      width="800" 
      height="600">
@@ -95,7 +95,7 @@ const downloadImage = async () => {
 ### React Component
 ```javascript
 function SuccessCard({ user, status }) {
-    const imageUrl = `http://localhost:3000/success?user=${encodeURIComponent(user)}&status=${encodeURIComponent(status)}`;
+    const imageUrl = `https://canvas.kanata.web.id/success?user=${encodeURIComponent(user)}&status=${encodeURIComponent(status)}`;
     
     return (
         <img 
@@ -113,7 +113,7 @@ const axios = require('axios');
 const fs = require('fs');
 
 async function generateCard(params) {
-    const response = await axios.get('http://localhost:3000/success', {
+    const response = await axios.get('https://canvas.kanata.web.id/success', {
         params: params,
         responseType: 'arraybuffer'
     });
@@ -146,12 +146,12 @@ npm run dev
 
 ### Test Swagger UI
 ```
-http://localhost:3000/api-docs
+https://canvas.kanata.web.id/api-docs
 ```
 
 ### Check Health
 ```bash
-curl http://localhost:3000/health
+curl https://canvas.kanata.web.id/health
 ```
 
 ### View Logs
@@ -189,7 +189,7 @@ npm install canvas
 ## 📚 Next Steps
 
 1. ✅ Read full [README.md](README.md) untuk detailed documentation
-2. ✅ Explore [Swagger UI](http://localhost:3000/api-docs) untuk interactive testing
+2. ✅ Explore [Swagger UI](https://canvas.kanata.web.id/api-docs) untuk interactive testing
 3. ✅ Check [DEPLOYMENT.md](DEPLOYMENT.md) untuk production deployment
 4. ✅ Review [ARCHITECTURE.md](ARCHITECTURE.md) untuk technical details
 

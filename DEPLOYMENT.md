@@ -197,7 +197,7 @@ server {
     server_name your-domain.com;
 
     location / {
-        proxy_pass http://localhost:3000;
+        proxy_pass https://canvas.kanata.web.id;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -348,7 +348,7 @@ npm install winston
 
 Setup cron job to ping `/health`:
 ```bash
-*/5 * * * * curl http://localhost:3000/health
+*/5 * * * * curl https://canvas.kanata.web.id/health
 ```
 
 ---

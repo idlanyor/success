@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "curl http://localhost:3000/health",
-    "docs": "open http://localhost:3000/api-docs",
-    "preview": "open http://localhost:3000/success/html"
+    "test": "curl https://canvas.kanata.web.id/health",
+    "docs": "open https://canvas.kanata.web.id/api-docs",
+    "preview": "open https://canvas.kanata.web.id/success/html"
   },
   "keywords": [
     "api",
