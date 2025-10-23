@@ -62,6 +62,36 @@ function drawStar(ctx, x, y, r1, r2, n) {
     ctx.closePath();
 }
 
+// ======= Helper: wrapText =======
+function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+    const words = text.split(' ');
+    let line = '';
+    let currentY = y;
+    const lines = [];
+
+    for (let i = 0; i < words.length; i++) {
+        const testLine = line + words[i] + ' ';
+        const metrics = ctx.measureText(testLine);
+        const testWidth = metrics.width;
+        
+        if (testWidth > maxWidth && i > 0) {
+            lines.push({ text: line.trim(), y: currentY });
+            line = words[i] + ' ';
+            currentY += lineHeight;
+        } else {
+            line = testLine;
+        }
+    }
+    lines.push({ text: line.trim(), y: currentY });
+
+    // Draw all lines
+    lines.forEach(lineObj => {
+        ctx.fillText(lineObj.text, x, lineObj.y);
+    });
+
+    return lines.length;
+}
+
 // ======= Main Function =======
 async function generateSuccessCard(params, options = {}) {
     const {
@@ -149,21 +179,28 @@ async function generateSuccessCard(params, options = {}) {
     }
 
     // === Texts ===
+    const maxTextWidth = 380;
+    const lineHeight = 24;
+    const labelSpacing = 60; // Space between labels
+    
+    // USER section
     ctx.fillStyle = 'rgb(220,38,38)';
     ctx.font = 'bold 22px "Caveat Brush"';
     ctx.fillText('USER', cardX + 100, cardY + 110);
 
     ctx.fillStyle = 'black';
     ctx.font = '20px "Caveat Brush"';
-    ctx.fillText(user, cardX + 250, cardY + 110);
+    const userLines = wrapText(ctx, user, cardX + 250, cardY + 110, maxTextWidth, lineHeight);
 
+    // TANGGAL section (adjust position based on USER lines)
+    const tanggalY = cardY + 110 + (userLines * lineHeight) + labelSpacing;
     ctx.fillStyle = 'rgb(220,38,38)';
     ctx.font = 'bold 22px "Caveat Brush"';
-    ctx.fillText('TANGGAL', cardX + 100, cardY + 170);
+    ctx.fillText('TANGGAL', cardX + 100, tanggalY);
 
     ctx.fillStyle = 'black';
     ctx.font = '20px "Caveat Brush"';
-    ctx.fillText(datetime, cardX + 250, cardY + 170);
+    wrapText(ctx, datetime, cardX + 250, tanggalY, maxTextWidth, lineHeight);
 
     // === Status ===
     ctx.textAlign = 'center';
